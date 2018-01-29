@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/pietschijven/haushalt-service.svg?branch=master)](https://travis-ci.org/pietschijven/haushalt-service)
