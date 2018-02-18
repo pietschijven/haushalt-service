@@ -1,9 +1,14 @@
 package de.pschijven.haushaltservice;
 
+import de.pschijven.haushaltservice.domain.Transaction;
+import de.pschijven.haushaltservice.service.TransactionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 @SpringBootApplication
 public class HaushaltServiceApplication {
@@ -12,12 +17,4 @@ public class HaushaltServiceApplication {
 		SpringApplication.run(HaushaltServiceApplication.class, args);
 	}
 
-	@Controller
-	public static class HaushaltController {
-
-		@GetMapping
-		public String index() {
-			return "index";
-		}
-	}
 }

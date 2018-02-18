@@ -1,3 +1,8 @@
 language: java
 jdk:
 - oraclejdk8
+deploy:
+  provider: heroku
+  app: immense-taiga-71072
+  api_key:
+    secure: "YOUR ENCRYPTED API KEY"
