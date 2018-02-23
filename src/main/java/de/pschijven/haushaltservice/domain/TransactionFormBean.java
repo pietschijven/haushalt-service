@@ -1,15 +1,20 @@
 package de.pschijven.haushaltservice.domain;
 
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+
 public class TransactionFormBean {
 
-    private Long amount;
+    @NotNull
+    private BigDecimal amount;
+
     private String description;
 
-    public Long getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

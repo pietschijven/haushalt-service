@@ -4,6 +4,8 @@ import de.pschijven.haushaltservice.database.TransactionDao;
 import de.pschijven.haushaltservice.domain.Transaction;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class TransactionService {
 
@@ -13,7 +15,7 @@ public class TransactionService {
         this.transactionDao = transactionDao;
     }
 
-    public void persistTransaction(final long amount, final String username, final String description) {
+    public void persistTransaction(final BigDecimal amount, final String username, final String description) {
         Transaction transaction = Transaction.create(amount, description, username);
         transactionDao.persist(transaction);
     }

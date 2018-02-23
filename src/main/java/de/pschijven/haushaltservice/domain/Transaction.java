@@ -1,5 +1,6 @@
 package de.pschijven.haushaltservice.domain;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -8,12 +9,12 @@ import java.util.Date;
 public class Transaction {
 
     private int id;
-    private long amount;
+    private BigDecimal amount;
     private String description;
     private Date creationDate;
     private String username;
 
-    public static Transaction create(final long amount, final String description, final String user) {
+    public static Transaction create(final BigDecimal amount, final String description, final String user) {
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
         transaction.setDescription(description);
@@ -30,11 +31,11 @@ public class Transaction {
         this.id = id;
     }
 
-    public long getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(long amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
