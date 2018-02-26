@@ -29,7 +29,7 @@ public class SecurityController {
 
     @GetMapping("/login")
     protected String login(final HttpServletRequest req) {
-        String redirectUri = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + "/callback";
+        String redirectUri = req.getScheme() + "://" + req.getServerName() + "/callback";
         String authorizeUrl = controller.buildAuthorizeUrl(req, redirectUri)
                 .withAudience(String.format("https://%s/userinfo", properties.getDomain()))
                 .build();
