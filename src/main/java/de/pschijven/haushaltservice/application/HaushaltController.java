@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
@@ -42,10 +43,13 @@ public class HaushaltController {
     }
 
     @PostMapping("/transaction")
-    public String persistTransaction(@ModelAttribute TransactionFormBean formBean, final Principal principal) {
+    public String persistTransaction(@ModelAttribute TransactionFormBean formBean,
+                                     final Principal principal,
+                                     final RedirectAttributes redirectAttributes) {
         LOGGER.info(formBean.toString());
         String username = usernameFor(principal);
         transactionService.persistTransaction(formBean.getAmount(), username, formBean.getDescription());
+        redirectAttributes.addFlashAttribute("message", "Successfully submitted amount: " + formBean.getAmount());
         return "redirect:index";
     }
 }

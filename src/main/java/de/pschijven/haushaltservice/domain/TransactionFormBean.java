@@ -1,11 +1,13 @@
 package de.pschijven.haushaltservice.domain;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class TransactionFormBean {
 
     @NotNull
+    @Digits(integer = 20, fraction = 2)
     private BigDecimal amount;
 
     private String description;
