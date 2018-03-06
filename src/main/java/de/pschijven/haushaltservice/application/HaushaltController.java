@@ -1,5 +1,7 @@
 package de.pschijven.haushaltservice.application;
 
+import de.pschijven.haushaltservice.configuration.TokenAuthentication;
+import de.pschijven.haushaltservice.domain.Auth0Properties;
 import de.pschijven.haushaltservice.domain.TransactionFormBean;
 import de.pschijven.haushaltservice.service.TransactionService;
 import org.slf4j.Logger;
@@ -10,26 +12,40 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
+
 @Controller
 public class HaushaltController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HaushaltController.class);
+    private final Auth0Properties properties;
     private final TransactionService transactionService;
 
-    public HaushaltController(TransactionService transactionService) {
+    public HaushaltController(Auth0Properties properties, TransactionService transactionService) {
+        this.properties = properties;
         this.transactionService = transactionService;
     }
 
     @GetMapping
-    public String index(final Model model) {
+    public String index(final Model model, final Principal principal) {
         model.addAttribute("transactionFormBean", new TransactionFormBean());
+        model.addAttribute("principal", usernameFor(principal));
         return "index";
     }
 
+    private String usernameFor(Principal principal) {
+        if (principal instanceof TokenAuthentication) {
+            TokenAuthentication auth = (TokenAuthentication)principal;
+            return auth.getUsername();
+        }
+        return principal.getName();
+    }
+
     @PostMapping("/transaction")
-    public String persistTransaction(@ModelAttribute TransactionFormBean formBean) {
+    public String persistTransaction(@ModelAttribute TransactionFormBean formBean, final Principal principal) {
         LOGGER.info(formBean.toString());
-        transactionService.persistTransaction(formBean.getAmount(), "piet", formBean.getDescription());
+        String username = usernameFor(principal);
+        transactionService.persistTransaction(formBean.getAmount(), username, formBean.getDescription());
         return "redirect:index";
     }
 }

@@ -16,6 +16,7 @@
     <div class="jumbotron">
             <h1>Haushaltskasse-Service</h1>
     </div>
+    <p th:text="'Hello, ' + ${principal}">Hello</p>
     <form action="#" th:action="@{/transaction}" th:object="${transactionFormBean}" method="post">
         <div class="form-group">
             <label for="amount">Amount</label>

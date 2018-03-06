@@ -1,5 +1,6 @@
 package de.pschijven.haushaltservice.configuration;
 
+import com.auth0.json.auth.UserInfo;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -12,10 +13,12 @@ public class TokenAuthentication extends AbstractAuthenticationToken {
 
     private final DecodedJWT jwt;
     private boolean invalidated;
+    private final UserInfo userInfo;
 
-    public TokenAuthentication(DecodedJWT jwt) {
+    public TokenAuthentication(DecodedJWT jwt, UserInfo userInfo) {
         super(readAuthorities(jwt));
         this.jwt = jwt;
+        this.userInfo = userInfo;
     }
 
     private boolean hasExpired() {
@@ -47,6 +50,14 @@ public class TokenAuthentication extends AbstractAuthenticationToken {
     @Override
     public Object getPrincipal() {
         return jwt.getSubject();
+    }
+
+    public String getUsername() {
+        return userInfo.getValues().get("name").toString();
+    }
+
+    public String getNickname() {
+        return userInfo.getValues().get("nickname").toString();
     }
 
     @Override

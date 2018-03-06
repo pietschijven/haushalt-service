@@ -1,6 +1,7 @@
 package de.pschijven.haushaltservice.configuration;
 
 import com.auth0.AuthenticationController;
+import com.auth0.client.auth.AuthAPI;
 import de.pschijven.haushaltservice.domain.Auth0Properties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,5 +29,10 @@ public class Auth0Configuration extends WebSecurityConfigurerAdapter {
         return AuthenticationController
                 .newBuilder(properties.getDomain(), properties.getClientId(), properties.getClientSecret())
                 .build();
+    }
+
+    @Bean
+    public AuthAPI authAPI(final Auth0Properties properties) {
+        return new AuthAPI(properties.getDomain(), properties.getClientId(), properties.getClientSecret());
     }
 }
