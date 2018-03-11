@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public class Transaction {
 
-    private int id;
+    private String id;
     private BigDecimal amount;
     private String description;
     private Date creationDate;
@@ -23,11 +23,11 @@ public class Transaction {
         return transaction;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -61,5 +61,16 @@ public class Transaction {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", description='" + description + '\'' +
+                ", creationDate=" + creationDate +
+                ", username='" + username + '\'' +
+                '}';
     }
 }
