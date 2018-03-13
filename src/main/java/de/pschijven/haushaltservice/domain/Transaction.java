@@ -1,11 +1,13 @@
 package de.pschijven.haushaltservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
-/**
- * Created by pschijven on 02.02.2018.
- */
+@JsonPropertyOrder(value = { "amount", "description", "username", "creationDate"})
 public class Transaction {
 
     private String id;
@@ -23,6 +25,7 @@ public class Transaction {
         return transaction;
     }
 
+    @JsonIgnore
     public String getId() {
         return id;
     }
@@ -47,6 +50,7 @@ public class Transaction {
         this.description = description;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     public Date getCreationDate() {
         return creationDate;
     }
