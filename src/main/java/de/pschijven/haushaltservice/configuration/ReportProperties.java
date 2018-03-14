@@ -9,6 +9,15 @@ public class ReportProperties {
 
     private String zipPassword;
     private String[] recipients;
+    private String schedule;
+
+    public String getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
+    }
 
     public String getZipPassword() {
         return zipPassword;
