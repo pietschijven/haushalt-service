@@ -22,7 +22,8 @@ public class TransactionDao {
 
     private static final String SELECT_TRANSACTIONS_IN_PERIOD =
             "select id, amount, description, creation_date, username from transactions " +
-                    "where creation_date >= ? and creation_date < ?";
+                    "where creation_date >= ? and creation_date < ? " +
+                    "order by username, creation_date";
 
     private final JdbcTemplate jdbcTemplate;
 
