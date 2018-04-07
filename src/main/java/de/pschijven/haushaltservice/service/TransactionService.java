@@ -6,6 +6,8 @@ import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import de.pschijven.haushaltservice.database.TransactionDao;
 import de.pschijven.haushaltservice.domain.Transaction;
 import de.pschijven.haushaltservice.util.DateProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -18,6 +20,8 @@ import static java.time.temporal.TemporalAdjusters.firstDayOfNextMonth;
 @Service
 public class TransactionService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(TransactionService.class);
+
     private final TransactionDao transactionDao;
     private final DateProvider dateProvider;
 
@@ -29,6 +33,7 @@ public class TransactionService {
     public void persistTransaction(final BigDecimal amount, final String username, final String description) {
         Transaction transaction = Transaction.create(amount, description, username);
         transactionDao.persist(transaction);
+        LOGGER.info("Persisted transaction with amount {}, description '{}' for user {}", amount, description, username);
     }
 
      public List<Transaction> transactionsInCurrentMonth() {
