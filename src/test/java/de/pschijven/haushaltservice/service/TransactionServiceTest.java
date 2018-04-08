@@ -5,6 +5,7 @@ import de.pschijven.haushaltservice.database.TransactionDao;
 import de.pschijven.haushaltservice.domain.Transaction;
 import de.pschijven.haushaltservice.util.DateProvider;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -55,6 +56,7 @@ public class TransactionServiceTest {
     }
 
     @Test
+    @Ignore
     public void testToCSV() throws JsonProcessingException {
         List<Transaction> testList = new ArrayList<>();
         Transaction transaction1 =  Transaction.create(new BigDecimal(10.10).setScale(2,BigDecimal.ROUND_HALF_DOWN),"Telefon", "Piet@email.com");
