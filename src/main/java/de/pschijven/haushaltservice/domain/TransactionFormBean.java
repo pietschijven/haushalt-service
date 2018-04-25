@@ -6,6 +6,14 @@ import java.math.BigDecimal;
 
 public class TransactionFormBean {
 
+    public TransactionFormBean() {
+    }
+
+    public TransactionFormBean(BigDecimal amount, String description) {
+        this.amount = amount;
+        this.description = description;
+    }
+
     @NotNull
     @Digits(integer = 20, fraction = 2)
     private BigDecimal amount;
