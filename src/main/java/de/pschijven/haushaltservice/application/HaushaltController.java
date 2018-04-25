@@ -1,6 +1,7 @@
 package de.pschijven.haushaltservice.application;
 
 import de.pschijven.haushaltservice.domain.Auth0Properties;
+import de.pschijven.haushaltservice.domain.Transaction;
 import de.pschijven.haushaltservice.domain.TransactionFormBean;
 import de.pschijven.haushaltservice.security.TokenAuthentication;
 import de.pschijven.haushaltservice.service.TransactionService;
@@ -14,6 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Controller
 public class HaushaltController {
@@ -27,11 +34,31 @@ public class HaushaltController {
         this.transactionService = transactionService;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public String index(final Model model, final Principal principal) {
         model.addAttribute("transactionFormBean", new TransactionFormBean());
         model.addAttribute("principal", usernameFor(principal));
+        model.addAttribute("recentTransactions", transactionsForCurrentUser(principal));
+        model.addAttribute("currentMonth", currentMonth());
         return "index";
+    }
+
+    private String currentMonth() {
+        Locale locale = new Locale("de", "DE");
+        LocalDate localDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM, yyyy", locale);
+        return formatter.format(localDate);
+    }
+
+    private List<TransactionFormBean> transactionsForCurrentUser(final Principal principal) {
+        List<Transaction> transactions = transactionService.transactionsInCurrentMonth();
+        String currentUser = usernameFor(principal);
+        List<TransactionFormBean> formBeans = transactions.stream()
+                .filter(t -> t.getUsername().equals(currentUser))
+                .map(t -> new TransactionFormBean(t.getAmount(), t.getDescription()))
+                .collect(Collectors.toList());
+        Collections.reverse(formBeans);
+        return formBeans;
     }
 
     private String usernameFor(Principal principal) {
@@ -49,7 +76,6 @@ public class HaushaltController {
         LOGGER.info(formBean.toString());
         String username = usernameFor(principal);
         transactionService.persistTransaction(formBean.getAmount(), username, formBean.getDescription());
-        redirectAttributes.addFlashAttribute("message", "Successfully submitted amount: " + formBean.getAmount());
-        return "redirect:index";
+        return "redirect:";
     }
 }
