@@ -1,0 +1,56 @@
+{
+  "name": "haushalt-service",
+  "scripts": {
+  },
+  "env": {
+    "AUTH0_CALLBACK_URL": {
+      "required": true
+    },
+    "AUTH0_CLIENT_ID": {
+      "required": true
+    },
+    "AUTH0_CLIENT_SECRET": {
+      "required": true
+    },
+    "AUTH0_DOMAIN": {
+      "required": true
+    },
+    "REPORT_RECIPIENTS": {
+      "required": true
+    },
+    "REPORT_SCHEDULE": {
+      "required": true
+    },
+    "REPORT_ZIP_PASSWORD": {
+      "required": true
+    },
+    "SENDGRID_API_KEY": {
+      "required": true
+    },
+    "SENDGRID_PASSWORD": {
+      "required": true
+    },
+    "SENDGRID_USERNAME": {
+      "required": true
+    },
+    "TEMPORIZE_URL": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "auth0",
+    "heroku-postgresql",
+    "sendgrid",
+    "temporize"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/java"
+    }
+  ]
+}

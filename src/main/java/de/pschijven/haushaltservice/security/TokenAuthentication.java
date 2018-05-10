@@ -1,4 +1,4 @@
-package de.pschijven.haushaltservice.configuration;
+package de.pschijven.haushaltservice.security;
 
 import com.auth0.json.auth.UserInfo;
 import com.auth0.jwt.interfaces.Claim;

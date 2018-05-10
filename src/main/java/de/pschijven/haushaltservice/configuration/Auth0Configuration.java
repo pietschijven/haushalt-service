@@ -19,9 +19,13 @@ public class Auth0Configuration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/callback", "/login").permitAll()
                 .antMatchers("/**").authenticated()
-                .and().formLogin().loginPage("/login")
+                .and()
+                    .formLogin()
+                    .loginPage("/login")
                 .and().logout().permitAll();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
+        http.csrf()
+                .ignoringAntMatchers("/api/**");
     }
 
     @Bean

@@ -18,6 +18,12 @@ public class Auth0Properties {
     @NotNull
     private String clientSecret;
 
+    @NotNull
+    private String apiAudience;
+
+    @NotNull
+    private String apiIssuer;
+
     public String getDomain() {
         return domain;
     }
@@ -40,5 +46,21 @@ public class Auth0Properties {
 
     public void setClientSecret(String clientSecret) {
         this.clientSecret = clientSecret;
+    }
+
+    public String getApiAudience() {
+        return apiAudience;
+    }
+
+    public void setApiAudience(String apiAudience) {
+        this.apiAudience = apiAudience;
+    }
+
+    public String getApiIssuer() {
+        return apiIssuer;
+    }
+
+    public void setApiIssuer(String apiIssuer) {
+        this.apiIssuer = apiIssuer;
     }
 }

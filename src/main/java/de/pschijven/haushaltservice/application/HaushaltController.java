@@ -1,9 +1,9 @@
 package de.pschijven.haushaltservice.application;
 
-import de.pschijven.haushaltservice.configuration.TokenAuthentication;
 import de.pschijven.haushaltservice.domain.Auth0Properties;
 import de.pschijven.haushaltservice.domain.Transaction;
 import de.pschijven.haushaltservice.domain.TransactionFormBean;
+import de.pschijven.haushaltservice.security.TokenAuthentication;
 import de.pschijven.haushaltservice.service.TransactionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
