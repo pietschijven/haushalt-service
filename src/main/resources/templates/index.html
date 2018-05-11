@@ -15,10 +15,31 @@
 <body>
 
 <div class="container">
-    <div class="jumbotron">
-        <h1>Haushaltskassen-Service</h1>
+    <nav class="navbar navbar-light bg-light rounded">
+        <a class="navbar-brand" href="#">Haushaltskassen-Service</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarMenu"
+                aria-controls="navbarMenu"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMenu">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a href="/" th:href="@{/}" class="nav-link">Eingabe</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/" th:href="@{/}" class="nav-link">Abrechnung</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="jumbotron customJumbotron">
+        <!--<h1>Haushaltskassen-Service</h1>-->
     </div>
-
 
     <p th:text="'Hallo ' + ${principal} + ','">Hello</p>
 

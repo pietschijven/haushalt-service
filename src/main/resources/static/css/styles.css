@@ -1,3 +1,9 @@
 .transactions-table {
     margin-top: 16px;
 }
+
+.customJumbotron {
+    background-image : url("https://wikitravel.org/upload/shared//3/31/West_Iceland_Banner.jpg");
+    background-size: cover;
+    min-height: 150px;
+}
