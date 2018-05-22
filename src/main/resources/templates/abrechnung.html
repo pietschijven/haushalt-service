@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Haushaltskassen-Service</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" href="../static/css/styles.css"/>
+</head>
+<body>
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+        <a class="navbar-brand" href="#">Haushaltskassen-Service</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarMenu"
+                aria-controls="navbarMenu"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMenu">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a href="/" th:href="@{/}" class="nav-link">Eingabe</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="/abrechnung" th:href="@{/abrechnung}" class="nav-link">Abrechnung</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="jumbotron customJumbotron">
+    </div>
+
+    <form th:action="@{/abrechnung}" method="post" th:object="${abrechnungFormBean}">
+        <div class="form-group row justify-content-md-center">
+            <label for="month" class="col-2 col-sm-1 col-form-label">Monat</label>
+            <div class="col-9 col-sm-3">
+                <input id="month" type="month" class="form-control" th:field="*{month}"/>
+            </div>
+            <div class="col-1">
+                <button type="submit" class="btn btn-primary">X</button>
+            </div>
+        </div>
+        <!--<div class="form-group row justify-content-sm-center">
+            <div class="col-12 col-sm-4">
+                <button type="submit" class="btn btn-primary btn-block">Anzeigen</button>
+            </div>
+        </div>-->
+    </form>
+
+    <div th:if="${showTransactions}">
+        <hr/>
+
+        <dl class="row">
+            <dt class="col-12 py-2">Ausgaben</dt>
+
+            <dd class="col-8">l.lenz@posteo.de</dd><dd class="col-4 text-right">$12</dd>
+            <dd class="col-8">pietschijven@live.com</dd><dd class="col-4 text-right">$12</dd>
+            <dd class="col-8"></dd><dd class="col-4 text-info text-right">$24</dd>
+        </dl>
+
+        <dl class="row">
+            <dt class="col-12 py-2">Abrechnung</dt>
+            <dd class="col-8">l.lenz@posteo.de bezahlt</dd><dd class="col-4 text-right">$12</dd>
+            <dd class="col-8">pietschijven@live.com bezahlt</dd><dd class="col-4 text-right">$12</dd>
+        </dl>
+
+    </div>
+
+    <div th:if="${showTransactions}">
+        <hr/>
+        <div class="row justify-content-md-center">
+            <div class="col-12 col-sm-4">
+                <a class="btn btn-primary btn-block" data-toggle="collapse" href="#collapseAusgaben" role="button" aria-expanded="false" aria-controls="collapseAusgaben">
+                    <span th:text="'Ausgaben anzeigen'">Ausgaben für</span>
+                </a>
+            </div>
+        </div>
+        <div class="collapse" id="collapseAusgaben">
+            <div class="table-responsive py-3">
+                <table class="table table-sm">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Betrag</th>
+                        <th>Benutzer</th>
+                        <th>Beschreibung</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="t : ${transactions}">
+                        <td th:text="${t.amount}">20.2</td>
+                        <td th:text="${t.username}">piet</td>
+                        <td th:text="${t.description}">Test</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <hr/>
+
+</div>
+
+</body>
+</html>
