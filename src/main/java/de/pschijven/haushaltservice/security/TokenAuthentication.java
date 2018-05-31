@@ -1,6 +1,5 @@
 package de.pschijven.haushaltservice.security;
 
-import com.auth0.json.auth.UserInfo;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -11,22 +10,22 @@ import java.util.*;
 
 public class TokenAuthentication extends AbstractAuthenticationToken {
 
-    private final DecodedJWT jwt;
+    private final DecodedJWT idToken;
+    private final String accessToken;
     private boolean invalidated;
-    private final UserInfo userInfo;
 
-    public TokenAuthentication(DecodedJWT jwt, UserInfo userInfo) {
-        super(readAuthorities(jwt));
-        this.jwt = jwt;
-        this.userInfo = userInfo;
+    public TokenAuthentication(final String accessToken, final DecodedJWT idToken) {
+        super(readAuthorities(idToken));
+        this.idToken = idToken;
+        this.accessToken = accessToken;
     }
 
     private boolean hasExpired() {
-        return jwt.getExpiresAt().before(new Date());
+        return idToken.getExpiresAt().before(new Date());
     }
 
-    private static Collection<? extends GrantedAuthority> readAuthorities(DecodedJWT jwt) {
-        Claim rolesClaim = jwt.getClaim("https://access.control/roles");
+    private static Collection<? extends GrantedAuthority> readAuthorities(final DecodedJWT idToken) {
+        Claim rolesClaim = idToken.getClaim("https://access.control/roles");
         if (rolesClaim.isNull()) {
             return Collections.emptyList();
         }
@@ -44,20 +43,16 @@ public class TokenAuthentication extends AbstractAuthenticationToken {
 
     @Override
     public String getCredentials() {
-        return jwt.getToken();
+        return idToken.getToken();
     }
 
     @Override
     public Object getPrincipal() {
-        return jwt.getSubject();
+        return idToken.getSubject();
     }
 
     public String getUsername() {
-        return userInfo.getValues().get("name").toString();
-    }
-
-    public String getNickname() {
-        return userInfo.getValues().get("nickname").toString();
+        return idToken.getClaim("name").asString();
     }
 
     @Override
@@ -71,5 +66,17 @@ public class TokenAuthentication extends AbstractAuthenticationToken {
     @Override
     public boolean isAuthenticated() {
         return !invalidated && !hasExpired();
+    }
+
+    public Map<String, Object> getUserMetadata() {
+        Claim claim = idToken.getClaim("https://immense-taiga-71072.herokuapp.com/user_metadata");
+        if (claim != null) {
+            return claim.asMap();
+        }
+        return new HashMap<>();
+    }
+
+    public String getAccessToken() {
+        return accessToken;
     }
 }

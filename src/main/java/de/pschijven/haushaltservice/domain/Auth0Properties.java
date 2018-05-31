@@ -24,6 +24,12 @@ public class Auth0Properties {
     @NotNull
     private String apiIssuer;
 
+    @NotNull
+    private String managementClientId;
+
+    @NotNull
+    private String managementClientSecret;
+
     public String getDomain() {
         return domain;
     }
@@ -62,5 +68,25 @@ public class Auth0Properties {
 
     public void setApiIssuer(String apiIssuer) {
         this.apiIssuer = apiIssuer;
+    }
+
+    public String getManagementClientId() {
+        return managementClientId;
+    }
+
+    public void setManagementClientId(String managementClientId) {
+        this.managementClientId = managementClientId;
+    }
+
+    public String getManagementClientSecret() {
+        return managementClientSecret;
+    }
+
+    public void setManagementClientSecret(String managementClientSecret) {
+        this.managementClientSecret = managementClientSecret;
+    }
+
+    public String getManagementAudience() {
+        return this.getApiIssuer() + "api/v2/";
     }
 }
