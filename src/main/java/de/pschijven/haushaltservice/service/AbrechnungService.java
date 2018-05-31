@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
 
 import static java.util.stream.Collectors.*;
 
@@ -47,7 +48,10 @@ public class AbrechnungService {
         for (String username : subtotals.keySet()) {
             BigDecimal fraction = salaryFractions.get(username);
             BigDecimal subtotal = subtotals.get(username);
-            BigDecimal amountToPay = total.multiply(fraction).subtract(subtotal);
+            BigDecimal amountToPay = total
+                    .multiply(fraction)
+                    .subtract(subtotal)
+                    .setScale(2, BigDecimal.ROUND_HALF_UP);
             toPay.put(username, amountToPay);
         }
         return toPay;
@@ -66,15 +70,9 @@ public class AbrechnungService {
     }
 
     Map<String, BigDecimal> computeSubTotals(List<Transaction> transactions) {
+        Collector<Transaction, ?, BigDecimal> transactionReducer = reducing(BigDecimal.ZERO, Transaction::getAmount, BigDecimal::add);
         return transactions.stream()
-                .collect(
-                        groupingBy(
-                                Transaction::getUsername,
-                                reducing(
-                                        BigDecimal.ZERO,
-                                        Transaction::getAmount,
-                                        BigDecimal::add
-                                )));
+                .collect(groupingBy(Transaction::getUsername, transactionReducer));
     }
 
 }
