@@ -4,6 +4,7 @@ import de.pschijven.haushaltservice.domain.Abrechnung;
 import de.pschijven.haushaltservice.domain.Transaction;
 import de.pschijven.haushaltservice.domain.UserMetadata;
 import de.pschijven.haushaltservice.security.Auth0ManagementAPI;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,6 +18,8 @@ import static java.util.stream.Collectors.*;
 @Service
 public class AbrechnungService {
 
+    private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(AbrechnungService.class);
+
     private final Auth0ManagementAPI api;
     private final TransactionService service;
 
@@ -28,14 +31,13 @@ public class AbrechnungService {
     public Abrechnung computeAbrechnung(final String month) {
         List<Transaction> transactions = service.transactionsInMonth(month);
         List<UserMetadata> metadata = api.fetchUserMetadata();
-
         return compute(transactions, metadata);
     }
 
     private Abrechnung compute(List<Transaction> transactions, List<UserMetadata> metadata) {
         Map<String, BigDecimal> subtotals = computeSubTotals(transactions);
         Map<String, BigDecimal> amountToPay = computeAmountToPay(subtotals, metadata);
-        return new Abrechnung(subtotals, amountToPay);
+        return new Abrechnung(subtotals, amountToPay, metadata);
     }
 
     private Map<String, BigDecimal> computeAmountToPay(Map<String, BigDecimal> subtotals, List<UserMetadata> metadata) {
