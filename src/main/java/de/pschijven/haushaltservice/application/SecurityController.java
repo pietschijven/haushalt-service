@@ -3,9 +3,8 @@ package de.pschijven.haushaltservice.application;
 import com.auth0.AuthenticationController;
 import com.auth0.IdentityVerificationException;
 import com.auth0.Tokens;
-import com.auth0.client.auth.AuthAPI;
-import com.auth0.json.auth.UserInfo;
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import de.pschijven.haushaltservice.domain.Auth0Properties;
 import de.pschijven.haushaltservice.security.TokenAuthentication;
 import org.springframework.security.core.AuthenticationException;
@@ -23,12 +22,10 @@ public class SecurityController {
 
     private final AuthenticationController controller;
     private final Auth0Properties properties;
-    private final AuthAPI authAPI;
 
-    public SecurityController(AuthenticationController controller, Auth0Properties properties, AuthAPI authAPI) {
+    public SecurityController(AuthenticationController controller, Auth0Properties properties) {
         this.controller = controller;
         this.properties = properties;
-        this.authAPI = authAPI;
     }
 
     @GetMapping("/login")
@@ -43,9 +40,8 @@ public class SecurityController {
             throws ServletException, IOException {
         try {
             Tokens tokens = controller.handle(req);
-            UserInfo userInfo = authAPI.userInfo(tokens.getAccessToken()).execute();
-            String username = userInfo.getValues().get("name").toString();
-            TokenAuthentication tokenAuth = new TokenAuthentication(JWT.decode(tokens.getIdToken()), userInfo);
+            DecodedJWT idToken = JWT.decode(tokens.getIdToken());
+            TokenAuthentication tokenAuth = new TokenAuthentication(tokens.getAccessToken(), idToken);
             SecurityContextHolder.getContext().setAuthentication(tokenAuth);
             res.sendRedirect("/");
         } catch (AuthenticationException | IdentityVerificationException e) {

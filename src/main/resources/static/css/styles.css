@@ -1,3 +1,16 @@
 .transactions-table {
     margin-top: 16px;
 }
+
+.customJumbotron {
+    background-size: cover;
+    min-height: 150px;
+}
+
+.eingabe-banner {
+    background-image : url("https://wikitravel.org/upload/shared//3/31/West_Iceland_Banner.jpg");
+}
+
+.abrechnung-banner {
+    background-image: url("https://wikitravel.org/upload/shared//d/d3/Westfjords_Banner.jpg");
+}

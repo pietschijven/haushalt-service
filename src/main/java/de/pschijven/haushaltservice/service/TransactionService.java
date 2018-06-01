@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static java.time.temporal.TemporalAdjusters.firstDayOfMonth;
@@ -40,6 +42,14 @@ public class TransactionService {
         LocalDate now = dateProvider.currentLocalDate();
         LocalDate firstDayOfMonth = now.with(firstDayOfMonth());
         LocalDate firstDayOfNextMonth = now.with(firstDayOfNextMonth());
+        return transactionDao.findTransactionsInPeriod(firstDayOfMonth, firstDayOfNextMonth);
+    }
+
+    public List<Transaction> transactionsInMonth(final String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        LocalDate month = YearMonth.parse(date, formatter).atDay(1);
+        LocalDate firstDayOfMonth = month.with(firstDayOfMonth());
+        LocalDate firstDayOfNextMonth = month.with(firstDayOfNextMonth());
         return transactionDao.findTransactionsInPeriod(firstDayOfMonth, firstDayOfNextMonth);
     }
 
