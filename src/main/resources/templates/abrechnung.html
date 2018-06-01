@@ -60,6 +60,20 @@
             <hr/>
             <div class="row">
                 <div class="col-12">
+                    <h6>Gehalt</h6>
+                </div>
+            </div>
+            <div class="row" th:each="u : ${abrechnung.metadata}">
+                <div class="col-7">
+                    <span th:text="${u.name}">AAAA</span>
+                </div>
+                <div class="col-5 text-right">
+                    <span th:text="${u.salary} + ' EUR'">BBBB</span>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-12">
                     <h6>Ausgaben</h6>
                 </div>
             </div>

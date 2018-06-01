@@ -41,44 +41,49 @@
         <!--<h1>Haushaltskassen-Service</h1>-->
     </div>
 
-    <p th:text="'Hallo ' + ${principal} + ','">Hello</p>
+    <div class="row justify-content-sm-center">
+        <div class="col-12 col-sm-6">
+            <p th:text="'Hallo ' + ${principal} + ','">Hello</p>
 
-    <form action="#" th:action="@{/transaction}" th:object="${transactionFormBean}" method="post">
-        <div class="form-group">
-            <label for="amount">Betrag</label>
-            <input type="number" step="0.01" id="amount" class="form-control" th:field="*{amount}"/>
-        </div>
-        <div class="form-group">
-            <label for="description">Beschreibung</label>
-            <input type="text" id="description" class="form-control" th:field="*{description}"/>
-        </div>
-        <button type="submit" class="btn btn-primary">Senden</button>
-    </form>
+            <form action="#" th:action="@{/transaction}" th:object="${transactionFormBean}" method="post">
+                <div class="form-group">
+                    <label for="amount">Betrag</label>
+                    <input type="number" step="0.01" id="amount" class="form-control" th:field="*{amount}"/>
+                </div>
+                <div class="form-group">
+                    <label for="description">Beschreibung</label>
+                    <input type="text" id="description" class="form-control" th:field="*{description}"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Senden</button>
+            </form>
 
-    <div class="transactions-table table-responsive" th:if="${not #lists.isEmpty(recentTransactions)}">
-        <hr/>
-        <p><strong th:text="'Ausgaben für ' + ${currentMonth}">Ausgaben für</strong></p>
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th>Betrag</th>
-                    <th>Beschreibung</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="t : ${recentTransactions}">
-                    <td th:text="${t.amount}">20.2</td>
-                    <td th:text="${t.description}">Test</td>
-                </tr>
-            </tbody>
-        </table>
+            <div class="transactions-table table-responsive" th:if="${not #lists.isEmpty(recentTransactions)}">
+                <hr/>
+                <p><strong th:text="'Ausgaben für ' + ${currentMonth}">Ausgaben für</strong></p>
+                <table class="table table-sm">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Betrag</th>
+                        <th>Beschreibung</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="t : ${recentTransactions}">
+                        <td th:text="${t.amount}">20.2</td>
+                        <td th:text="${t.description}">Test</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <hr/>
+
+            <form action="#" th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-link btn-block">Logout</button>
+            </form>
+        </div>
     </div>
 
-    <hr/>
-
-    <form action="#" th:action="@{/logout}" method="post">
-        <button type="submit" class="btn btn-link btn-block">Logout</button>
-    </form>
 
 </div>
 
