@@ -63,7 +63,7 @@ public class AbrechnungService {
         BigDecimal totalSalary = metaDataMap.values().stream().reduce(BigDecimal.ZERO, BigDecimal::add);
 
         return metaDataMap.entrySet().stream()
-                .collect(toMap(Map.Entry::getKey, e -> e.getValue().divide(totalSalary, 2, BigDecimal.ROUND_HALF_UP)));
+                .collect(toMap(Map.Entry::getKey, e -> e.getValue().divide(totalSalary)));
     }
 
     private BigDecimal computeTotal(Map<String, BigDecimal> subtotals) {
