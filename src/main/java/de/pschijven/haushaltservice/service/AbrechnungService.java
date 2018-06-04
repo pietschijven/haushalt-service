@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +64,7 @@ public class AbrechnungService {
         BigDecimal totalSalary = metaDataMap.values().stream().reduce(BigDecimal.ZERO, BigDecimal::add);
 
         return metaDataMap.entrySet().stream()
-                .collect(toMap(Map.Entry::getKey, e -> e.getValue().divide(totalSalary)));
+                .collect(toMap(Map.Entry::getKey, e -> e.getValue().divide(totalSalary, RoundingMode.HALF_UP)));
     }
 
     private BigDecimal computeTotal(Map<String, BigDecimal> subtotals) {
