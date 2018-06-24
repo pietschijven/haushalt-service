@@ -8,7 +8,7 @@ public class UserMetadata {
 
     public UserMetadata(String name, BigDecimal salary) {
         this.name = name;
-        this.salary = salary;
+        this.salary = salary.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
     public String getName() {

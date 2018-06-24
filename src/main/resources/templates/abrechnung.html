@@ -1,42 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Haushaltskassen-Service</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" href="../static/css/styles.css"/>
+<head th:replace="fragments/imports :: header">
 </head>
 <body>
 
 <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
-        <a class="navbar-brand" href="#">Haushaltskassen-Service</a>
-        <button class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarMenu"
-                aria-controls="navbarMenu"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarMenu">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a href="/" th:href="@{/}" class="nav-link">Eingabe</a>
-                </li>
-                <li class="nav-item active">
-                    <a href="/abrechnung" th:href="@{/abrechnung}" class="nav-link">Abrechnung</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
 
     <div class="jumbotron customJumbotron abrechnung-banner">
     </div>
