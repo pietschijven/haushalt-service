@@ -37,7 +37,7 @@ public class AbrechnungServiceTest {
     @Test
     public void testSalaryFractions() throws Exception {
         Map<String, BigDecimal> salaryMap = new HashMap<>();
-        salaryMap.put("piet", new BigDecimal("1445.5"));
+        salaryMap.put("piet", new BigDecimal("1445.50"));
         salaryMap.put("lucia", new BigDecimal("1931.93"));
 
         Map<String, BigDecimal> salaryFractions = service.computeSalaryFractions(salaryMap);
