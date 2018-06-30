@@ -52,7 +52,7 @@ public class ReportEmail {
     }
 
     private Mail createEmail(String emailAddress) throws Exception {
-        Email from = new Email(properties.getUsername());
+        Email from = new Email("haushaltskasse@heroku.com");
         Email to = new Email(emailAddress);
         Content content = createContent();
         Attachments attachments = createAttachments();

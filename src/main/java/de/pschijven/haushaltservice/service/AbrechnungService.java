@@ -60,7 +60,7 @@ public class AbrechnungService {
         return toPay;
     }
 
-    private Map<String, BigDecimal> computeSalaryFractions(Map<String, BigDecimal> metaDataMap) {
+    public Map<String, BigDecimal> computeSalaryFractions(Map<String, BigDecimal> metaDataMap) {
         BigDecimal totalSalary = metaDataMap.values().stream().reduce(BigDecimal.ZERO, BigDecimal::add);
 
         return metaDataMap.entrySet().stream()
