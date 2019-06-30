@@ -25,7 +25,7 @@
     </form>
 
     <div th:if="${showTransactions}" class="row justify-content-sm-center">
-        <div class="col-12 col-sm-6">
+        <div class="col-12 col-sm-5">
             <hr/>
             <div class="row">
                 <div class="col-12">
@@ -76,35 +76,31 @@
             </div>
             <hr/>
         </div>
-    </div>
 
-    <div th:if="${showTransactions}">
-        <div class="collapse.show" id="collapseAusgaben">
-            <div class="row justify-content-sm-center">
-                <div class="col-12 col-sm-6">
-                    <div class="table-responsive py-3">
-                        <table class="table table-sm">
-                            <thead class="thead-light">
-                            <tr>
-                                <th>Betrag</th>
-                                <th>Benutzer</th>
-                                <th>Beschreibung</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="t : ${transactions}">
-                                <td th:text="${t.amount}">20.2</td>
-                                <td th:text="${t.username}">piet</td>
-                                <td th:text="${t.description}">Test</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+
+        <div class="col-12 col-sm-6 offset-sm-1">
+            <div class="collapse.show" id="collapseAusgaben">
+                <div class="table-responsive py-3">
+                    <table class="table table-sm">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>Betrag</th>
+                            <th>Benutzer</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="t : ${transactions}">
+                            <td th:text="${t.amount}">20.2</td>
+                            <td th:text="${t.username}">piet</td>
+                            <td th:text="${t.description}">Test</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 </body>
