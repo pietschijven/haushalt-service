@@ -47,7 +47,6 @@ public class AbrechnungsController {
 
             modelAndView.addObject("abrechnungFormBean", formBean);
             modelAndView.addObject("transactions", transactions);
-            modelAndView.addObject("showTransactions", true);
             modelAndView.addObject("currentMonth", selectedMonth(formBean.getMonth()));
             modelAndView.addObject("abrechnung", abrechnung);
             return modelAndView;
